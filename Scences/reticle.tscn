@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://edx1vwa7o3lf"]
 
-[ext_resource type="Script" uid="uid://cabx8i3oint38" path="res://reticle.gd" id="1_fvfu6"]
-[ext_resource type="Texture2D" uid="uid://bloeh05wkr6jk" path="res://crosshair.png" id="2_ygrq2"]
+[ext_resource type="Script" uid="uid://cabx8i3oint38" path="res://Scripts/reticle.gd" id="1_fvfu6"]
+[ext_resource type="Texture2D" uid="uid://bloeh05wkr6jk" path="res://PNGs/crosshair.png" id="2_ygrq2"]
 
 [node name="Recticle" type="Node2D"]
 script = ExtResource("1_fvfu6")

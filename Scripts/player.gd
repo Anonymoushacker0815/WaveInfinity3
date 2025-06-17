@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+@export var player_scene: PackedScene
 @export var speed = 300
 @export var health = 100
 @export var max_health = 100
@@ -20,6 +20,7 @@ var facing_right = true
 func _ready():
 	health_bar.max_value = max_health
 	health_bar.value = health
+	add_to_group("player")
 	camera.make_current()
 	
 	if shoot_timer.timeout.is_connected(_on_shoot_timer_timeout):

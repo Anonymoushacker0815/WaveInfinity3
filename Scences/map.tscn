@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://0rgkrolpa8k1"]
+[gd_scene load_steps=7 format=3 uid="uid://0rgkrolpa8k1"]
 
 [ext_resource type="Texture2D" uid="uid://dwgp413wppext" path="res://PNGs/ChatGPT Image 8. Juni 2025, 16_01_45.png" id="1_5iua2"]
-[ext_resource type="PackedScene" path="res://Scences/Zombie.tscn" id="3_4i0n0"]
-[ext_resource type="Script" uid="uid://bnntga74vpxyk" path="res://Scences/level_label.gd" id="4_iof7d"]
-[ext_resource type="Script" uid="uid://ulmbwrgsg3vu" path="res://Scences/LevelManager.gd" id="6_dqij7"]
+[ext_resource type="PackedScene" uid="uid://bsrgpaorfe1bi" path="res://Scences/Zombie.tscn" id="3_4i0n0"]
+[ext_resource type="PackedScene" uid="uid://b2ahhhgnjekg6" path="res://Scences/player.tscn" id="3_5iua2"]
+[ext_resource type="Script" uid="uid://bnntga74vpxyk" path="res://Scripts/level_label.gd" id="4_iof7d"]
+[ext_resource type="Script" uid="uid://ulmbwrgsg3vu" path="res://Scripts/LevelManager.gd" id="6_dqij7"]
 
 [sub_resource type="FontFile" id="FontFile_iof7d"]
 cache/0/16/0/ascent = 0.0
@@ -21,6 +22,7 @@ texture = ExtResource("1_5iua2")
 
 [node name="LevelManager" type="Node2D" parent="."]
 script = ExtResource("6_dqij7")
+player_scene = ExtResource("3_5iua2")
 zombie_scene = ExtResource("3_4i0n0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

@@ -1,30 +1,30 @@
 [gd_scene load_steps=11 format=3 uid="uid://b2ahhhgnjekg6"]
 
-[ext_resource type="Script" uid="uid://ba08d0m2lj37i" path="res://player.gd" id="1_4flbx"]
-[ext_resource type="PackedScene" uid="uid://cklxh70fvqhvo" path="res://bullet.tscn" id="2_i3pqv"]
-[ext_resource type="Texture2D" uid="uid://0c28cq64usve" path="res://Player_Animation.png" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://ba08d0m2lj37i" path="res://Scripts/player.gd" id="1_njme2"]
+[ext_resource type="PackedScene" uid="uid://cklxh70fvqhvo" path="res://Scences/bullet.tscn" id="2_5xvqy"]
+[ext_resource type="Texture2D" uid="uid://0c28cq64usve" path="res://PNGs/Player_Animation.png" id="3_yfn50"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dw050"]
 size = Vector2(19, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i3pqv"]
-atlas = ExtResource("2_onrkg")
+atlas = ExtResource("3_yfn50")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
-atlas = ExtResource("2_onrkg")
+atlas = ExtResource("3_yfn50")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sweqy"]
-atlas = ExtResource("2_onrkg")
+atlas = ExtResource("3_yfn50")
 region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2hs0m"]
-atlas = ExtResource("2_onrkg")
+atlas = ExtResource("3_yfn50")
 region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1jxqw"]
-atlas = ExtResource("2_onrkg")
+atlas = ExtResource("3_yfn50")
 region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dw050"]
@@ -52,12 +52,13 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 6.0
+"speed": 4.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_4flbx")
-bullet_scene = ExtResource("2_i3pqv")
+scale = Vector2(2, 2)
+script = ExtResource("1_njme2")
+bullet_scene = ExtResource("2_5xvqy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, 0)
@@ -67,6 +68,7 @@ shape = SubResource("RectangleShape2D_dw050")
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_dw050")
 animation = &"walk"
+frame_progress = 0.941617
 
 [node name="Gun" type="Node2D" parent="."]
 visible = false
