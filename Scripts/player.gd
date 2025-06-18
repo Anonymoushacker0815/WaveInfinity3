@@ -1,4 +1,5 @@
 extends CharacterBody2D
+signal died
 @export var player_scene: PackedScene
 @export var speed = 300
 @export var health = 100
@@ -102,7 +103,10 @@ func take_damage(amount):
 		die()
 
 func die():
+	emit_signal("died")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	queue_free()
+
 
 func _on_shoot_timer_timeout():
 	can_shoot = true

@@ -35,7 +35,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_yjhaw")
 }],
 "loop": true,
-"name": &"zombie_walk",
+"name": &"walk",
 "speed": 4.0
 }]
 
@@ -50,9 +50,8 @@ script = ExtResource("1_w0y56")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_26qvd")
-animation = &"zombie_walk"
-autoplay = "zombie_walk"
-frame_progress = 0.183839
+animation = &"walk"
+autoplay = "walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 1)

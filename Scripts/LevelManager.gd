@@ -3,9 +3,10 @@ extends Node2D
 @export var player_scene: PackedScene
 @export var zombie_scene: PackedScene
 @export var skeleton_scene: PackedScene
-@export var reticle_scene: PackedScene   # New export
+@export var reticle_scene: PackedScene
+
 @export var base_zombie_count := 5
-@export var base_skeleton_count := 3     # New: base skeleton count
+@export var base_skeleton_count := 3
 @export var map_size := Vector2(2048, 2048)
 @export var edge_margin := 100.0
 @export var min_distance := 64.0
@@ -13,29 +14,34 @@ extends Node2D
 var level := 1
 var spawn_positions: Array[Vector2] = []
 
+@onready var death_screen = get_node("../DeathScreen")
+@onready var restart_button = get_node("../DeathScreen/VBoxContainer/Button")
+
+
+
 func _ready():
 	spawn_player()
 	start_level(level)
-	
-	
+	restart_button.pressed.connect(on_restart_button_pressed)
+
 func spawn_player():
 	var player_instance = player_scene.instantiate()
 	player_instance.position = map_size / 2
 	add_child(player_instance)
-	
-	# Make sure these are called after player is added to tree
+
 	player_instance.initialize_ui()
 	player_instance.initialize_camera()
+	player_instance.died.connect(on_player_died)  # Listen for player death
 
 func start_level(current_level: int):
 	spawn_positions.clear()
-	
+
 	var zombies_to_spawn = base_zombie_count 
 	var skeletons_to_spawn = base_skeleton_count
-	
+
 	spawn_mobs(zombie_scene, zombies_to_spawn)
-	spawn_mobs(skeleton_scene, skeletons_to_spawn)  # New call
-	
+	spawn_mobs(skeleton_scene, skeletons_to_spawn)
+
 	update_level_label(current_level)
 
 func spawn_mobs(scene: PackedScene, count: int):
@@ -79,3 +85,10 @@ func update_level_label(current_level: int):
 func next_level():
 	level += 1
 	start_level(level)
+
+func on_player_died():
+	get_tree().paused = true
+	death_screen.visible = true
+
+func on_restart_button_pressed():
+	get_tree().reload_current_scene()
