@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://b2ahhhgnjekg6"]
+[gd_scene load_steps=20 format=3 uid="uid://b2ahhhgnjekg6"]
 
 [ext_resource type="Script" uid="uid://ba08d0m2lj37i" path="res://Scripts/player.gd" id="1_njme2"]
 [ext_resource type="PackedScene" uid="uid://cklxh70fvqhvo" path="res://Scences/bullet.tscn" id="2_5xvqy"]
 [ext_resource type="Texture2D" uid="uid://0c28cq64usve" path="res://PNGs/Player_Animation.png" id="3_yfn50"]
 [ext_resource type="Script" uid="uid://cabx8i3oint38" path="res://Scripts/reticle.gd" id="4_5xvqy"]
 [ext_resource type="Texture2D" uid="uid://ccle2cwt71ma0" path="res://PNGs/health-bar-empty.png" id="4_f0j0c"]
+[ext_resource type="Texture2D" uid="uid://bmo2sbu3cddbd" path="res://PNGs/muzzleflash.png" id="4_n0f5m"]
 [ext_resource type="Texture2D" uid="uid://b70n6y08xd8tb" path="res://PNGs/health-bar.png" id="5_n0f5m"]
 [ext_resource type="Texture2D" uid="uid://bloeh05wkr6jk" path="res://PNGs/crosshair.png" id="5_yfn50"]
 
@@ -59,12 +60,42 @@ animations = [{
 "speed": 4.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbly7"]
+atlas = ExtResource("4_n0f5m")
+region = Rect2(6, 0, 92, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qye4j"]
+atlas = ExtResource("4_n0f5m")
+region = Rect2(98, 0, 92, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywsr4"]
+atlas = ExtResource("4_n0f5m")
+region = Rect2(190, 0, 92, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tbo0y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbly7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qye4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywsr4")
+}],
+"loop": false,
+"name": &"flash",
+"speed": 17.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_njme2")
 bullet_scene = ExtResource("2_5xvqy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(1.5, 0)
 shape = SubResource("RectangleShape2D_dw050")
 
@@ -72,9 +103,19 @@ shape = SubResource("RectangleShape2D_dw050")
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_dw050")
 animation = &"walk"
-frame_progress = 0.941617
+frame = 1
+frame_progress = 0.387126
 
 [node name="Gun" type="Node2D" parent="."]
+
+[node name="MuzzleFlash" type="AnimatedSprite2D" parent="Gun"]
+position = Vector2(10.5, -12.5)
+scale = Vector2(0.0380076, 0.0245666)
+sprite_frames = SubResource("SpriteFrames_tbo0y")
+animation = &"flash"
+centered = false
+
+[node name="BulletSpawnPoint" type="Marker2D" parent="Gun"]
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = -19.5
@@ -82,7 +123,6 @@ offset_top = -24.5
 offset_right = 250.5
 offset_bottom = 35.5
 scale = Vector2(0.15, 0.15)
-fill_mode = 1
 texture_under = ExtResource("4_f0j0c")
 texture_progress = ExtResource("5_n0f5m")
 

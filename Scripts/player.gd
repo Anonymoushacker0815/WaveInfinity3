@@ -16,6 +16,7 @@ var can_shoot = true
 @onready var shoot_timer = $ShootTimer
 @onready var camera = $Camera2D
 @onready var reticle = $Reticle
+@onready var flash = $Gun/MuzzleFlash
 
 var facing_right = true
 
@@ -24,6 +25,8 @@ func _ready():
 	health_bar.value = health
 	add_to_group("player")
 	camera.make_current()
+	flash.visible = false
+	$Gun/MuzzleFlash.animation_finished.connect(_on_muzzle_flash_finished)
 	
 	reticle.show()
 	reticle.global_position = get_global_mouse_position()
@@ -33,8 +36,8 @@ func _ready():
 
 func _process(delta):
 	var mouse_pos = get_global_mouse_position()
-	gun.look_at(mouse_pos)
-	
+	#gun.look_at(mouse_pos)
+	flash.flip_h = !facing_right
 	if Input.is_action_pressed("shoot") and can_shoot:
 		facing_right = mouse_pos.x > global_position.x
 		animated_sprite.flip_h = !facing_right
@@ -43,10 +46,17 @@ func _process(delta):
 		shoot()
 		can_shoot = false
 		shoot_timer.start(fire_rate)
+	if facing_right:
+		flash.position = Vector2(10, -12)  
+		$Gun/BulletSpawnPoint.position = Vector2(12, 1)
+	else:
+		flash.position = Vector2(-13, -14) 
+		$Gun/BulletSpawnPoint.position = Vector2(-12, -1)
 
 func _physics_process(delta):
 	var direction_input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = direction_input * speed
+	flash.flip_h = !facing_right
 	
 	if can_shoot:  
 		if abs(direction_input.x) > 0.1: 
@@ -83,15 +93,24 @@ func shoot():
 	if bullet_scene == null:
 		push_error("No bullet scene assigned!")
 		return
-	
+
 	var bullet = bullet_scene.instantiate()
 	get_parent().add_child(bullet)
-	
-	bullet.global_position = $Gun.global_position
-	var mouse_pos = get_global_mouse_position()
-	bullet.direction = (mouse_pos - global_position).normalized()
+
+	var target_pos = $Reticle.global_position
+	bullet.global_position = $Gun/BulletSpawnPoint.global_position
+	bullet.direction = (target_pos - bullet.global_position).normalized()
 	bullet.rotation = bullet.direction.angle()
 
+	# Show muzzle flash
+	var muzzle_flash = $Gun.get_node("MuzzleFlash")
+	muzzle_flash.show()
+	muzzle_flash.flip_h = !facing_right
+	muzzle_flash.play("flash") 
+
+func _on_muzzle_flash_finished():
+	$Gun/MuzzleFlash.hide()
+	
 func take_damage(amount):
 	health -= amount
 	health_bar.value = health
