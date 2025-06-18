@@ -49,7 +49,7 @@ script = ExtResource("1_mpd2v")
 visibility_layer = 2
 sprite_frames = SubResource("SpriteFrames_l7r8c")
 autoplay = "default"
-frame_progress = 0.370999
+frame_progress = 0.421187
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0)
