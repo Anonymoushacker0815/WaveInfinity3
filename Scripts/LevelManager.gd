@@ -2,7 +2,8 @@ extends Node2D
 
 @export var player_scene: PackedScene
 @export var zombie_scene: PackedScene
-@export var skeleton_scene: PackedScene  # New export
+@export var skeleton_scene: PackedScene
+@export var reticle_scene: PackedScene   # New export
 @export var base_zombie_count := 5
 @export var base_skeleton_count := 3     # New: base skeleton count
 @export var map_size := Vector2(2048, 2048)
@@ -21,8 +22,8 @@ func _ready():
 func start_level(current_level: int):
 	spawn_positions.clear()
 	
-	var zombies_to_spawn = base_zombie_count + (current_level - 1) * 2
-	var skeletons_to_spawn = base_skeleton_count + (current_level - 1) * 1
+	var zombies_to_spawn = base_zombie_count 
+	var skeletons_to_spawn = base_skeleton_count
 	
 	spawn_mobs(zombie_scene, zombies_to_spawn)
 	spawn_mobs(skeleton_scene, skeletons_to_spawn)  # New call
@@ -31,7 +32,8 @@ func start_level(current_level: int):
 
 func spawn_mobs(scene: PackedScene, count: int):
 	var attempts = 0
-	while spawn_positions.size() < count + spawn_positions.size() and attempts < count * 10:
+	var start_count = spawn_positions.size()
+	while spawn_positions.size() < start_count + count and attempts < count * 10:
 		var pos = get_random_edge_position()
 		if is_far_enough(pos):
 			spawn_positions.append(pos)

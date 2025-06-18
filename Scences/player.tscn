@@ -71,7 +71,6 @@ animation = &"walk"
 frame_progress = 0.941617
 
 [node name="Gun" type="Node2D" parent="."]
-visible = false
 position = Vector2(9, 1)
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://be0y6ynsgwd00"]
+[gd_scene load_steps=9 format=3 uid="uid://be0y6ynsgwd00"]
 
 [ext_resource type="Texture2D" uid="uid://dv17uoiekpcwp" path="res://PNGs/SkeletonFireball(3).png" id="1_lywxe"]
+[ext_resource type="Script" uid="uid://7wako3dvxs4j" path="res://Scripts/fireball.gd" id="1_mpd2v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4sl2"]
 atlas = ExtResource("1_lywxe")
@@ -38,9 +39,18 @@ animations = [{
 "speed": 4.0
 }]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_mpd2v"]
+radius = 14.0
+
+[node name="Fireball" type="Area2D"]
+script = ExtResource("1_mpd2v")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visibility_layer = 2
 sprite_frames = SubResource("SpriteFrames_l7r8c")
 autoplay = "default"
-frame_progress = 0.0910597
+frame_progress = 0.370999
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_mpd2v")
