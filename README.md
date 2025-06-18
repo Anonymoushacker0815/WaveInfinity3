@@ -24,4 +24,3 @@ The Enemies spawn at the borders of the map and simply walk towards the player.
 
 Zombies: 20HP. Movement speed of 50 px/seconds. Deals 10 damage on hit. Range of only melee.
 Skeleton: same stats as Zombies, but with a range of 300 px 
-

@@ -1,7 +1,10 @@
 extends Node2D
+
 @export var player_scene: PackedScene
 @export var zombie_scene: PackedScene
+@export var skeleton_scene: PackedScene  # New export
 @export var base_zombie_count := 5
+@export var base_skeleton_count := 3     # New: base skeleton count
 @export var map_size := Vector2(2048, 2048)
 @export var edge_margin := 100.0
 @export var min_distance := 64.0
@@ -15,16 +18,20 @@ func _ready():
 	add_child(player_instance)
 	start_level(level)
 
-
 func start_level(current_level: int):
 	spawn_positions.clear()
+	
 	var zombies_to_spawn = base_zombie_count + (current_level - 1) * 2
+	var skeletons_to_spawn = base_skeleton_count + (current_level - 1) * 1
+	
 	spawn_mobs(zombie_scene, zombies_to_spawn)
+	spawn_mobs(skeleton_scene, skeletons_to_spawn)  # New call
+	
 	update_level_label(current_level)
 
 func spawn_mobs(scene: PackedScene, count: int):
 	var attempts = 0
-	while spawn_positions.size() < count and attempts < count * 10:
+	while spawn_positions.size() < count + spawn_positions.size() and attempts < count * 10:
 		var pos = get_random_edge_position()
 		if is_far_enough(pos):
 			spawn_positions.append(pos)
@@ -58,8 +65,7 @@ func is_far_enough(pos: Vector2) -> bool:
 func update_level_label(current_level: int):
 	var label = get_node("../CanvasLayer/LevelLabel")
 	label.text = "Level %d" % current_level
+
 func next_level():
 	level += 1
 	start_level(level)
-	
-	
