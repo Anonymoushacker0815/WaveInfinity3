@@ -13,10 +13,18 @@ var level := 1
 var spawn_positions: Array[Vector2] = []
 
 func _ready():
+	spawn_player()
+	start_level(level)
+	
+	
+func spawn_player():
 	var player_instance = player_scene.instantiate()
 	player_instance.position = map_size / 2
 	add_child(player_instance)
-	start_level(level)
+	
+	# Make sure these are called after player is added to tree
+	player_instance.initialize_ui()
+	player_instance.initialize_camera()
 
 func start_level(current_level: int):
 	spawn_positions.clear()

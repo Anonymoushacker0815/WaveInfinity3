@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2ahhhgnjekg6"]
+[gd_scene load_steps=13 format=3 uid="uid://b2ahhhgnjekg6"]
 
 [ext_resource type="Script" uid="uid://ba08d0m2lj37i" path="res://Scripts/player.gd" id="1_njme2"]
 [ext_resource type="PackedScene" uid="uid://cklxh70fvqhvo" path="res://Scences/bullet.tscn" id="2_5xvqy"]
 [ext_resource type="Texture2D" uid="uid://0c28cq64usve" path="res://PNGs/Player_Animation.png" id="3_yfn50"]
+[ext_resource type="Script" uid="uid://cabx8i3oint38" path="res://Scripts/reticle.gd" id="4_5xvqy"]
+[ext_resource type="Texture2D" uid="uid://bloeh05wkr6jk" path="res://PNGs/crosshair.png" id="5_yfn50"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dw050"]
 size = Vector2(19, 26)
@@ -71,11 +73,9 @@ animation = &"walk"
 frame_progress = 0.941617
 
 [node name="Gun" type="Node2D" parent="."]
-visible = false
-position = Vector2(9, 1)
+position = Vector2(0, 1.5)
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
-visible = false
 offset_left = -12.0
 offset_top = -21.0
 offset_right = 14.0
@@ -89,5 +89,13 @@ drag_left_margin = 0.0
 drag_top_margin = 0.0
 drag_right_margin = 0.0
 drag_bottom_margin = 0.0
+
+[node name="Reticle" type="Node2D" parent="."]
+script = ExtResource("4_5xvqy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Reticle"]
+position = Vector2(23.5, -3)
+scale = Vector2(3, 3)
+texture = ExtResource("5_yfn50")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
