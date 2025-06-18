@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 300
-@export var health = 100
+@export var health = 0
 @export var max_health = 100
 
 @export var bullet_scene: PackedScene

@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b2ahhhgnjekg6"]
+[gd_scene load_steps=13 format=3 uid="uid://b2ahhhgnjekg6"]
 
 [ext_resource type="Script" uid="uid://ba08d0m2lj37i" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="PackedScene" uid="uid://cklxh70fvqhvo" path="res://bullet.tscn" id="2_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://0c28cq64usve" path="res://Player_Animation.png" id="2_onrkg"]
+[ext_resource type="Texture2D" uid="uid://h3tgvki6fav2" path="res://health_background.png" id="4_sweqy"]
+[ext_resource type="Texture2D" uid="uid://cc4xld4qmxtf0" path="res://health.png" id="5_2hs0m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dw050"]
 size = Vector2(19, 26)
@@ -73,12 +75,13 @@ visible = false
 position = Vector2(9, 1)
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
-visible = false
-offset_left = -12.0
-offset_top = -21.0
-offset_right = 14.0
-offset_bottom = -16.0
-fill_mode = 1
+offset_left = -163.0
+offset_top = -179.0
+offset_right = 861.0
+offset_bottom = 845.0
+scale = Vector2(0.3, 0.3)
+texture_under = ExtResource("4_sweqy")
+texture_progress = ExtResource("5_2hs0m")
 
 [node name="ShootTimer" type="Timer" parent="."]
 
