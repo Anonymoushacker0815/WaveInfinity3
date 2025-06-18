@@ -15,7 +15,6 @@ cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 
 [node name="Game" type="Node2D"]
-position = Vector2(512, 511)
 
 [node name="Ground" type="Sprite2D" parent="."]
 position = Vector2(1536, 1537)
