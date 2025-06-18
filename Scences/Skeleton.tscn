@@ -1,7 +1,25 @@
-[gd_scene load_steps=9 format=3 uid="uid://vbh0t5jb08fa"]
+[gd_scene load_steps=15 format=3 uid="uid://vbh0t5jb08fa"]
 
 [ext_resource type="Texture2D" uid="uid://dmb1r0a0suysm" path="res://PNGs/Skelette.png" id="1_2eytx"]
-[ext_resource type="Script" uid="uid://dapiy7pjqybho" path="res://Scences/skeleton.gd" id="1_dt1ns"]
+[ext_resource type="Script" uid="uid://dapiy7pjqybho" path="res://Scripts/skeleton.gd" id="1_dt1ns"]
+[ext_resource type="PackedScene" uid="uid://be0y6ynsgwd00" path="res://Scences/Fireball.tscn" id="2_xaju6"]
+[ext_resource type="Texture2D" uid="uid://dgd2i3ij67icv" path="res://PNGs/SkeletonFireball.png" id="3_ngjxn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lex3l"]
+atlas = ExtResource("3_ngjxn")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oe08f"]
+atlas = ExtResource("3_ngjxn")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwtx1"]
+atlas = ExtResource("3_ngjxn")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvvjx"]
+atlas = ExtResource("3_ngjxn")
+region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_30hdo"]
 atlas = ExtResource("1_2eytx")
@@ -23,6 +41,23 @@ region = Rect2(32, 32, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_lex3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oe08f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwtx1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvvjx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_30hdo")
 }, {
 "duration": 1.0,
@@ -35,7 +70,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_rrmkw")
 }],
 "loop": true,
-"name": &"default",
+"name": &"walk",
 "speed": 4.0
 }]
 
@@ -47,13 +82,18 @@ collision_layer = 3
 collision_mask = 2
 motion_mode = 1
 script = ExtResource("1_dt1ns")
+fireball_scene = ExtResource("2_xaju6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_g38cq")
-autoplay = "default"
-frame_progress = 0.500459
+animation = &"idle"
+autoplay = "walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-6, 2)
 shape = SubResource("RectangleShape2D_xaju6")
+
+[node name="ShootTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

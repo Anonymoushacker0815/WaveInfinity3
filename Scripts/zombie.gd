@@ -1,15 +1,28 @@
 extends CharacterBody2D
 
 @export var speed := 80
+@export var max_health := 30
+
 @onready var animated_sprite = $AnimatedSprite2D
 
-var player: Node2D = null  # Properly declare as a single node
+var player: Node2D = null
+var health := max_health
 
 func _ready():
 	var players = get_tree().get_nodes_in_group("player")
 	add_to_group("zombies")
 	if players.size() > 0:
 		player = players[0]
+
+func take_damage(amount: int):
+	health -= amount
+	print("%s took %d damage, health now: %d" % [name, amount, health])
+	if health <= 0:
+		die()
+
+func die():
+	print("%s died." % name)
+	queue_free()
 
 func _physics_process(delta):
 	if player == null or not is_instance_valid(player):
@@ -19,7 +32,7 @@ func _physics_process(delta):
 	var direction = player.global_position - global_position
 	var distance = direction.length()
 
-	if distance > 64:  # <- Stop pushing when close
+	if distance > 64:
 		direction = direction.normalized()
 		velocity = direction * speed
 		animated_sprite.play("walk")
@@ -28,5 +41,6 @@ func _physics_process(delta):
 		animated_sprite.play("idle")
 
 	move_and_slide()
+
 	if direction.x != 0:
 		animated_sprite.flip_h = direction.x < 0
