@@ -91,10 +91,6 @@ func shoot():
 	var mouse_pos = get_global_mouse_position()
 	bullet.direction = (mouse_pos - global_position).normalized()
 	bullet.rotation = bullet.direction.angle()
-	
-	print("Bullet spawned at: ", bullet.global_position, 
-		  " Gun at: ", $Gun.global_position,
-		  " Player at: ", global_position)
 
 func take_damage(amount):
 	health -= amount

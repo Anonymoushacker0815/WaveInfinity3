@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmlt8k0yfr35n"]
+
+[ext_resource type="Texture2D" uid="uid://dv17uoiekpcwp" path="res://PNGs/SkeletonFireball(3).png" id="1_lywxe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4sl2"]
+atlas = ExtResource("1_lywxe")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dotk"]
+atlas = ExtResource("1_lywxe")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t76u0"]
+atlas = ExtResource("1_lywxe")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ndoi"]
+atlas = ExtResource("1_lywxe")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l7r8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4sl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dotk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t76u0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ndoi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_l7r8c")
+autoplay = "default"
+frame_progress = 0.0910597

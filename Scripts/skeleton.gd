@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed := 90
+@export var max_health := 30
 @export var fireball_scene: PackedScene
 @export var shoot_distance := 300  # Adjusted here
 @export var shoot_cooldown := 1.0
@@ -9,6 +10,7 @@ extends CharacterBody2D
 @onready var shoot_timer: Timer = $ShootTimer
 
 var player: Node2D = null
+var health := max_health
 
 func _ready():
 	var players = get_tree().get_nodes_in_group("player")
@@ -18,6 +20,16 @@ func _ready():
 
 	shoot_timer.wait_time = shoot_cooldown
 	shoot_timer.start()
+	
+func take_damage(amount: int):
+	health -= amount
+	print("%s took %d damage, health now: %d" % [name, amount, health])
+	if health <= 0:
+		die()
+
+func die():
+	print("%s died." % name)
+	queue_free()
 
 func _physics_process(delta):
 	if player == null or not is_instance_valid(player):
