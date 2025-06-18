@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://0rgkrolpa8k1"]
+[gd_scene load_steps=8 format=3 uid="uid://0rgkrolpa8k1"]
 
 [ext_resource type="Texture2D" uid="uid://dwgp413wppext" path="res://PNGs/ChatGPT Image 8. Juni 2025, 16_01_45.png" id="1_5iua2"]
 [ext_resource type="PackedScene" uid="uid://bsrgpaorfe1bi" path="res://Scences/Zombie.tscn" id="3_4i0n0"]
 [ext_resource type="PackedScene" uid="uid://b2ahhhgnjekg6" path="res://Scences/player.tscn" id="3_5iua2"]
 [ext_resource type="Script" uid="uid://bnntga74vpxyk" path="res://Scripts/level_label.gd" id="4_iof7d"]
 [ext_resource type="PackedScene" uid="uid://vbh0t5jb08fa" path="res://Scences/Skeleton.tscn" id="5_dqij7"]
-[ext_resource type="PackedScene" uid="uid://edx1vwa7o3lf" path="res://Scences/reticle.tscn" id="6_4i0n0"]
 [ext_resource type="Script" uid="uid://ulmbwrgsg3vu" path="res://Scripts/LevelManager.gd" id="6_dqij7"]
 
 [sub_resource type="FontFile" id="FontFile_iof7d"]
@@ -16,9 +15,10 @@ cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 
 [node name="Game" type="Node2D"]
+position = Vector2(512, 511)
 
 [node name="Ground" type="Sprite2D" parent="."]
-position = Vector2(2048, 2048)
+position = Vector2(1536, 1537)
 texture = ExtResource("1_5iua2")
 
 [node name="LevelManager" type="Node2D" parent="."]
@@ -26,7 +26,6 @@ script = ExtResource("6_dqij7")
 player_scene = ExtResource("3_5iua2")
 zombie_scene = ExtResource("3_4i0n0")
 skeleton_scene = ExtResource("5_dqij7")
-reticle_scene = ExtResource("6_4i0n0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
