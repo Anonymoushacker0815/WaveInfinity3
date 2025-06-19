@@ -18,11 +18,16 @@ cache/0/32/0/descent = 0.0
 cache/0/32/0/underline_position = 0.0
 cache/0/32/0/underline_thickness = 0.0
 cache/0/32/0/scale = 1.0
+cache/0/128/0/ascent = 0.0
+cache/0/128/0/descent = 0.0
+cache/0/128/0/underline_position = 0.0
+cache/0/128/0/underline_thickness = 0.0
+cache/0/128/0/scale = 1.0
 
 [node name="Game" type="Node2D"]
 
 [node name="Ground" type="Sprite2D" parent="."]
-position = Vector2(1536, 1537)
+position = Vector2(2048, 2048)
 texture = ExtResource("1_5iua2")
 
 [node name="LevelManager" type="Node2D" parent="."]
@@ -43,7 +48,7 @@ offset_bottom = 23.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = SubResource("FontFile_iof7d")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 128
 script = ExtResource("4_iof7d")
 
 [node name="DeathScreen" type="CanvasLayer" parent="."]
@@ -65,7 +70,7 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="DeathScreen/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 128
 text = "Defeat"
 horizontal_alignment = 1
 

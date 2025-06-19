@@ -1,4 +1,5 @@
 extends CharacterBody2D
+signal died
 
 @export var speed := 80
 @export var max_health := 30
@@ -22,6 +23,7 @@ func take_damage(amount: int):
 
 func die():
 	print("%s died." % name)
+	emit_signal("died")
 	queue_free()
 
 func _physics_process(delta):

@@ -15,6 +15,11 @@ run/main_scene="uid://0rgkrolpa8k1"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://PNGs/icon.svg"
 
+[display]
+
+window/size/viewport_width=2000
+window/size/viewport_height=1500
+
 [input]
 
 move_left={
