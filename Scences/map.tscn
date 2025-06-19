@@ -87,7 +87,6 @@ text = "Restart"
 [node name="WorldBounds" type="StaticBody2D" parent="."]
 
 [node name="TopWall" type="CollisionShape2D" parent="WorldBounds"]
-visible = false
 rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_dqij7")
 

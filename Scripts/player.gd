@@ -31,8 +31,7 @@ func _ready():
 	reticle.show()
 	reticle.global_position = get_global_mouse_position()
 	
-	if shoot_timer.timeout.is_connected(_on_shoot_timer_timeout):
-		shoot_timer.timeout.connect(_on_shoot_timer_timeout)
+
 
 func _process(delta):
 	var mouse_pos = get_global_mouse_position()

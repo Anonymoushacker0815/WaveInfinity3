@@ -27,32 +27,27 @@ var spawn_positions: Array[Vector2] = []
 @onready var restart_button = get_node("../DeathScreen/VBoxContainer/Button")
 
 func _ready():
-	# Keep the death screen and button interactive when paused
 	death_screen.process_mode   = Node.PROCESS_MODE_WHEN_PAUSED
 	restart_button.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 
-	# Start game
 	spawn_player()
 	start_level(level)
 
-	restart_button.pressed.connect(self.on_restart_button_pressed)
+	restart_button.pressed.connect(on_restart_button_pressed)
 
 func spawn_player():
 	var player = player_scene.instantiate()
 	player.position = map_size / 2
 	add_child(player)
-
 	player.initialize_ui()
 	player.initialize_camera()
-	player.died.connect(self.on_player_died)
+	player.died.connect(on_player_died)
 
 func start_level(current_level: int):
 	spawn_positions.clear()
 
-	# calculate counts exponentially: base * multiplier^(level-1)
 	var zombies_to_spawn   = int(base_zombie_count   * pow(zombie_multiplier,   current_level - 1))
 	var skeletons_to_spawn = int(base_skeleton_count * pow(skeleton_multiplier, current_level - 1))
-
 	alive_mobs = zombies_to_spawn + skeletons_to_spawn
 
 	spawn_mobs(zombie_scene,   zombies_to_spawn)
@@ -72,11 +67,30 @@ func spawn_mobs(scene: PackedScene, count: int):
 			call_deferred("_deferred_spawn_mob", mob)
 		attempts += 1
 
-# run just after the current physics/idle flush:
 func _deferred_spawn_mob(mob: Node):
 	add_child(mob)
-	mob.died.connect(self.on_mob_died)
+	mob.died.connect(on_mob_died)
 
+	# scale stats by 1.1^(level-1)
+	var stat_mult = pow(1.1, level - 1)
+
+	# EVERY mob gets faster and harder to kill:
+	mob.speed         *= stat_mult
+	mob.max_health    = int(mob.max_health * stat_mult)
+	mob.health        = mob.max_health
+
+	if mob.is_in_group("zombies"):
+		# zombies deal more damage:
+		mob.damage = int(mob.damage * stat_mult)
+		# and attack faster:
+		mob.attack_cooldown    /= stat_mult
+		mob.attack_timer.wait_time = mob.attack_cooldown
+
+	elif mob.is_in_group("skeletons"):
+		# skeletons shoot faster:
+		mob.shoot_cooldown    /= stat_mult
+		mob.shoot_timer.wait_time = mob.shoot_cooldown
+		mob.shoot_distance *= stat_mult
 
 func get_random_edge_position() -> Vector2:
 	var side = randi_range(0, 3)
@@ -101,7 +115,6 @@ func is_far_enough(pos: Vector2) -> bool:
 func on_mob_died():
 	alive_mobs -= 1
 	if alive_mobs <= 0:
-		# wave cleared → next level
 		level += 1
 		start_level(level)
 
