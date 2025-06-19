@@ -1,13 +1,15 @@
 [gd_scene load_steps=11 format=3 uid="uid://0rgkrolpa8k1"]
 
 [ext_resource type="Texture2D" uid="uid://dwgp413wppext" path="res://PNGs/ChatGPT Image 8. Juni 2025, 16_01_45.png" id="1_5iua2"]
-[ext_resource type="PackedScene" uid="uid://bsrgpaorfe1bi" path="res://Scences/Zombie.tscn" id="3_4i0n0"]
-[ext_resource type="PackedScene" uid="uid://b2ahhhgnjekg6" path="res://Scences/player.tscn" id="3_5iua2"]
-[ext_resource type="Script" uid="uid://bnntga74vpxyk" path="res://Scripts/level_label.gd" id="4_iof7d"]
-[ext_resource type="PackedScene" uid="uid://vbh0t5jb08fa" path="res://Scences/Skeleton.tscn" id="5_dqij7"]
+[ext_resource type="PackedScene" uid="uid://bsrgpaorfe1bi" path="res://Scenes/Zombie.tscn" id="3_4i0n0"]
+[ext_resource type="PackedScene" uid="uid://b2ahhhgnjekg6" path="res://Scenes/player.tscn" id="3_5iua2"]
+[ext_resource type="PackedScene" uid="uid://vbh0t5jb08fa" path="res://Scenes/Skeleton.tscn" id="5_dqij7"]
 [ext_resource type="Script" uid="uid://ulmbwrgsg3vu" path="res://Scripts/LevelManager.gd" id="6_dqij7"]
 
 [sub_resource type="FontFile" id="FontFile_iof7d"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -23,6 +25,10 @@ cache/0/128/0/descent = 0.0
 cache/0/128/0/underline_position = 0.0
 cache/0/128/0/underline_thickness = 0.0
 cache/0/128/0/scale = 1.0
+
+[sub_resource type="GDScript" id="GDScript_5iua2"]
+script/source = "extends Label
+"
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dqij7"]
 
@@ -42,9 +48,9 @@ player_scene = ExtResource("3_5iua2")
 zombie_scene = ExtResource("3_4i0n0")
 skeleton_scene = ExtResource("5_dqij7")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="LevelLabel" type="CanvasLayer" parent="."]
 
-[node name="LevelLabel" type="Label" parent="CanvasLayer"]
+[node name="LevelLabel" type="Label" parent="LevelLabel"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -55,7 +61,7 @@ grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = SubResource("FontFile_iof7d")
 theme_override_font_sizes/font_size = 128
-script = ExtResource("4_iof7d")
+script = SubResource("GDScript_5iua2")
 
 [node name="DeathScreen" type="CanvasLayer" parent="."]
 visible = false
@@ -80,9 +86,15 @@ theme_override_font_sizes/font_size = 128
 text = "Defeat"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="DeathScreen/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="DeathScreen/VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 64
 text = "Restart"
+
+[node name="HomeButton" type="Button" parent="DeathScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Home"
 
 [node name="WorldBounds" type="StaticBody2D" parent="." groups=["world_boundary"]]
 

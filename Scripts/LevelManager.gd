@@ -24,16 +24,19 @@ var spawn_positions: Array[Vector2] = []
 
 # UI nodes
 @onready var death_screen   = get_node("../DeathScreen")
-@onready var restart_button = get_node("../DeathScreen/VBoxContainer/Button")
+@onready var restart_button = get_node("../DeathScreen/VBoxContainer/RestartButton")
+@onready var home_button  = get_node("../DeathScreen/VBoxContainer/HomeButton") 
 
 func _ready():
 	death_screen.process_mode   = Node.PROCESS_MODE_WHEN_PAUSED
-	restart_button.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	restart_button.process_mode = Node.PROCESS_MODE_ALWAYS
+	home_button.process_mode    = Node.PROCESS_MODE_ALWAYS
 
 	spawn_player()
 	start_level(level)
 
 	restart_button.pressed.connect(on_restart_button_pressed)
+	home_button.pressed.connect(on_home_button_pressed)
 
 func spawn_player():
 	var player = player_scene.instantiate()
@@ -114,7 +117,7 @@ func on_mob_died():
 		start_level(level)
 
 func update_level_label(current_level: int):
-	var lbl = get_node("../CanvasLayer/LevelLabel")
+	var lbl = get_node("../LevelLabel/LevelLabel")
 	lbl.text = "Level %d" % current_level
 
 func on_player_died():
@@ -125,3 +128,8 @@ func on_restart_button_pressed():
 	get_tree().paused = false
 	death_screen.visible = false
 	get_tree().reload_current_scene()
+
+func on_home_button_pressed():
+	get_tree().paused = false
+	death_screen.visible = false
+	get_tree().change_scene_to_file("res://Scenes/home_screen.tscn")

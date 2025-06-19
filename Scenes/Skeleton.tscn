@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dmb1r0a0suysm" path="res://PNGs/Skelette.png" id="1_2eytx"]
 [ext_resource type="Script" uid="uid://dapiy7pjqybho" path="res://Scripts/skeleton.gd" id="1_dt1ns"]
-[ext_resource type="PackedScene" uid="uid://be0y6ynsgwd00" path="res://Scences/Fireball.tscn" id="2_xaju6"]
+[ext_resource type="PackedScene" uid="uid://be0y6ynsgwd00" path="res://Scenes/Fireball.tscn" id="2_xaju6"]
 [ext_resource type="Texture2D" uid="uid://dgd2i3ij67icv" path="res://PNGs/SkeletonFireball.png" id="3_ngjxn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lex3l"]
