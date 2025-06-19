@@ -12,6 +12,10 @@ func _ready():
 func _physics_process(delta):
 	position += direction * speed * delta
 
+func set_damage(new_damage: int):
+	damage = new_damage
+
+
 func _on_body_entered(body):
 	if body.is_in_group("world_boundary"):
 		queue_free()

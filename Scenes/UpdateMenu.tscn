@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://cabtcmkt80us"]
+
+[ext_resource type="Script" uid="uid://pojmji5s6pdu" path="res://Scripts/UpgradeMenu.gd" id="1_p6oue"]
+
+[node name="UpdateMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_p6oue")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -368.0
+offset_top = -293.0
+offset_right = 368.0
+offset_bottom = 293.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 206.0
+offset_right = 444.0
+offset_bottom = 229.0
+text = "Choose an Upgrade"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.0
+offset_top = -68.0
+offset_right = 86.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="SpeedButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Increas Speed
+"
+
+[node name="FireRateButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Increase Firerate
+"
+
+[node name="DamageButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Increase Damage"
+
+[node name="ChosenLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Continue
+"

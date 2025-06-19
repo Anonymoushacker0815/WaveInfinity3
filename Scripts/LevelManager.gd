@@ -5,12 +5,24 @@ extends Node2D
 @export var zombie_scene: PackedScene
 @export var skeleton_scene: PackedScene
 @export var reticle_scene: PackedScene
+@export var upgrade_menu_scene: PackedScene
 
 # Base counts & exponential multipliers
 @export var base_zombie_count   := 10
 @export var base_skeleton_count := 5
 @export var zombie_multiplier   := 1.5
 @export var skeleton_multiplier := 1.4
+
+# Base Player stats
+@export var base_player_speed := 300.0
+@export var base_player_fire_rate := 0.5
+@export var base_player_damage := 10.0
+
+# Current Player stats
+var current_player_speed: float
+var current_player_fire_rate: float
+var current_player_damage: float
+var upgrade_menu: CanvasLayer = null
 
 # Map spawning bounds
 @export var map_size     := Vector2(4096, 4096)
@@ -32,11 +44,17 @@ func _ready():
 	restart_button.process_mode = Node.PROCESS_MODE_ALWAYS
 	home_button.process_mode    = Node.PROCESS_MODE_ALWAYS
 
+	reset_player_stats()
 	spawn_player()
 	start_level(level)
 
 	restart_button.pressed.connect(on_restart_button_pressed)
 	home_button.pressed.connect(on_home_button_pressed)
+	
+func reset_player_stats():
+	current_player_speed = base_player_speed
+	current_player_fire_rate = base_player_fire_rate
+	current_player_damage = base_player_damage
 
 func spawn_player():
 	var player = player_scene.instantiate()
@@ -113,8 +131,52 @@ func is_far_enough(pos: Vector2) -> bool:
 func on_mob_died():
 	alive_mobs -= 1
 	if alive_mobs <= 0:
-		level += 1
-		start_level(level)
+		show_upgrade_menu()
+		
+func show_upgrade_menu():
+	get_tree().paused = true
+	upgrade_menu = upgrade_menu_scene.instantiate()
+	add_child(upgrade_menu)
+
+	upgrade_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	upgrade_menu.upgrade_selected.connect(upgrade_stat)
+	upgrade_menu.continue_pressed.connect(continue_to_next_level)
+
+func upgrade_stat(stat: String, amount: float):
+	match stat:
+		"speed":
+			current_player_speed += amount * base_player_speed
+			print("Upgraded speed to: ", current_player_speed)
+		"fire_rate":
+			current_player_fire_rate = max(0.05, current_player_fire_rate + amount)
+			print("Upgraded fire rate to: ", current_player_fire_rate)
+		"damage":
+			current_player_damage += amount
+			print("Upgraded damage to: ", current_player_damage)
+	
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_movement_speed(current_player_speed)
+		player.set_fire_rate(current_player_fire_rate)
+		player.set_bullet_damage(current_player_damage)
+
+func continue_to_next_level():
+	if upgrade_menu:
+		upgrade_menu.queue_free()
+		upgrade_menu = null
+		
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	get_tree().paused = false
+	level += 1
+	
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.health = player.max_health
+		player.health_bar.value = player.health
+
+	start_level(level)
 
 func update_level_label(current_level: int):
 	var lbl = get_node("../LevelLabel/LevelLabel")

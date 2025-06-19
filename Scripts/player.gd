@@ -6,9 +6,10 @@ signal died
 @export var max_health = 100
 
 @export var bullet_scene: PackedScene
-@export var fire_rate := 0.2 
+@export var fire_rate := 0.5
 var shoot_cooldown := 0.0
 var can_shoot = true
+var bullet_damage: int = 10
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var health_bar = $HealthBar
@@ -23,6 +24,7 @@ var facing_right = true
 func _ready():
 	health_bar.max_value = max_health
 	health_bar.value = health
+	shoot_timer.wait_time = fire_rate
 	add_to_group("player")
 	camera.make_current()
 	flash.visible = false
@@ -35,7 +37,6 @@ func _ready():
 
 func _process(delta):
 	var mouse_pos = get_global_mouse_position()
-	#gun.look_at(mouse_pos)
 	flash.flip_h = !facing_right
 	if Input.is_action_pressed("shoot") and can_shoot:
 		facing_right = mouse_pos.x > global_position.x
@@ -73,6 +74,27 @@ func _physics_process(delta):
 		animated_sprite.play("idle")
 	
 	move_and_slide()
+	
+func set_bullet_damage(new_damage: int):
+	bullet_damage = new_damage
+	print("Set bullet damage to: ", bullet_damage)
+
+func set_fire_rate(new_rate: float):
+	fire_rate = new_rate
+	shoot_timer.wait_time = fire_rate
+	print("Set fire rate to: ", fire_rate)
+	
+func set_movement_speed(new_speed: float):
+	speed = new_speed
+	print("Set movement speed to: ", speed)
+	
+func initialize_stats(speed: float, fire_rate: float, damage: float):
+	self.speed = speed
+	self.fire_rate = fire_rate
+	if bullet_scene:
+		var bullet = bullet_scene.instantiate()
+		if bullet.has_method("set_damage"):
+			bullet.set_damage(damage)
 
 func initialize_ui():
 	if has_node("Reticle"):
@@ -92,14 +114,16 @@ func shoot():
 	if bullet_scene == null:
 		push_error("No bullet scene assigned!")
 		return
-
+	
 	var bullet = bullet_scene.instantiate()
 	get_parent().add_child(bullet)
-
-	var target_pos = $Reticle.global_position
+	
 	bullet.global_position = $Gun/BulletSpawnPoint.global_position
-	bullet.direction = (target_pos - bullet.global_position).normalized()
+	bullet.direction = ($Reticle.global_position - bullet.global_position).normalized()
 	bullet.rotation = bullet.direction.angle()
+	bullet.damage = bullet_damage  
+	
+	print("Fired bullet with damage: ", bullet.damage)
 
 	# Show muzzle flash
 	var muzzle_flash = $Gun.get_node("MuzzleFlash")
