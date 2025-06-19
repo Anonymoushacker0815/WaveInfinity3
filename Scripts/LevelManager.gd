@@ -69,10 +69,14 @@ func spawn_mobs(scene: PackedScene, count: int):
 			spawn_positions.append(pos)
 			var mob = scene.instantiate()
 			mob.position = pos
-			add_child(mob)
-			# assume each mob script defines and emits `died`
-			mob.died.connect(self.on_mob_died)
+			call_deferred("_deferred_spawn_mob", mob)
 		attempts += 1
+
+# run just after the current physics/idle flush:
+func _deferred_spawn_mob(mob: Node):
+	add_child(mob)
+	mob.died.connect(self.on_mob_died)
+
 
 func get_random_edge_position() -> Vector2:
 	var side = randi_range(0, 3)
@@ -110,4 +114,6 @@ func on_player_died():
 	death_screen.visible = true
 
 func on_restart_button_pressed():
+	get_tree().paused = false
+	death_screen.visible = false
 	get_tree().reload_current_scene()

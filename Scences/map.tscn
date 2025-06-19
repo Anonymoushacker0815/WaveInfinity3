@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://0rgkrolpa8k1"]
+[gd_scene load_steps=11 format=3 uid="uid://0rgkrolpa8k1"]
 
 [ext_resource type="Texture2D" uid="uid://dwgp413wppext" path="res://PNGs/ChatGPT Image 8. Juni 2025, 16_01_45.png" id="1_5iua2"]
 [ext_resource type="PackedScene" uid="uid://bsrgpaorfe1bi" path="res://Scences/Zombie.tscn" id="3_4i0n0"]
@@ -23,6 +23,12 @@ cache/0/128/0/descent = 0.0
 cache/0/128/0/underline_position = 0.0
 cache/0/128/0/underline_thickness = 0.0
 cache/0/128/0/scale = 1.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dqij7"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4i0n0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_hg4cd"]
 
 [node name="Game" type="Node2D"]
 
@@ -77,3 +83,23 @@ horizontal_alignment = 1
 [node name="Button" type="Button" parent="DeathScreen/VBoxContainer"]
 layout_mode = 2
 text = "Restart"
+
+[node name="WorldBounds" type="StaticBody2D" parent="."]
+
+[node name="TopWall" type="CollisionShape2D" parent="WorldBounds"]
+visible = false
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_dqij7")
+
+[node name="LeftWall" type="CollisionShape2D" parent="WorldBounds"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_4i0n0")
+
+[node name="BottomWall" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(4096, 4096)
+shape = SubResource("WorldBoundaryShape2D_hg4cd")
+
+[node name="RightWall" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(4096, 4096)
+rotation = 4.71239
+shape = SubResource("WorldBoundaryShape2D_hg4cd")
