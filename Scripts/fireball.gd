@@ -1,7 +1,7 @@
 extends Area2D
 
-@export var speed := 200.0
-@export var damage := 20  # Set this in the inspector or dynamically
+@export var speed   := 200.0
+@export var damage  := 20
 
 var velocity := Vector2.ZERO
 
@@ -16,4 +16,7 @@ func _on_body_entered(body):
 	if body.is_in_group("player") or body.is_in_group("zombies"):
 		if body.has_method("take_damage"):
 			body.take_damage(damage)
+		queue_free()
+		return
+	if body.is_in_group("world_boundary"):
 		queue_free()

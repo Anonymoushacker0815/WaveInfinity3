@@ -71,23 +71,18 @@ func _deferred_spawn_mob(mob: Node):
 	add_child(mob)
 	mob.died.connect(on_mob_died)
 
-	# scale stats by 1.1^(level-1)
 	var stat_mult = pow(1.1, level - 1)
 
-	# EVERY mob gets faster and harder to kill:
 	mob.speed         *= stat_mult
 	mob.max_health    = int(mob.max_health * stat_mult)
 	mob.health        = mob.max_health
 
 	if mob.is_in_group("zombies"):
-		# zombies deal more damage:
 		mob.damage = int(mob.damage * stat_mult)
-		# and attack faster:
 		mob.attack_cooldown    /= stat_mult
 		mob.attack_timer.wait_time = mob.attack_cooldown
 
 	elif mob.is_in_group("skeletons"):
-		# skeletons shoot faster:
 		mob.shoot_cooldown    /= stat_mult
 		mob.shoot_timer.wait_time = mob.shoot_cooldown
 		mob.shoot_distance *= stat_mult

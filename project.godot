@@ -20,6 +20,10 @@ config/icon="res://PNGs/icon.svg"
 window/size/viewport_width=2000
 window/size/viewport_height=1500
 
+[global_group]
+
+world_boundary=""
+
 [input]
 
 move_left={

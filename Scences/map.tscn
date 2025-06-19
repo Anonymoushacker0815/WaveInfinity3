@@ -84,7 +84,7 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Restart"
 
-[node name="WorldBounds" type="StaticBody2D" parent="."]
+[node name="WorldBounds" type="StaticBody2D" parent="." groups=["world_boundary"]]
 
 [node name="TopWall" type="CollisionShape2D" parent="WorldBounds"]
 rotation = 3.14159

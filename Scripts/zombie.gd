@@ -3,30 +3,22 @@ signal died
 
 @export var speed := 80
 @export var max_health := 30
-
-# NEW: how much damage each hit does
 @export var damage := 10
-# NEW: distance at which the zombie stops and attacks
 @export var attack_range := 64
-# NEW: seconds between attacks
 @export var attack_cooldown := 1.0
 
 @onready var animated_sprite = $AnimatedSprite2D
 
 var player: Node2D = null
 var health := max_health
-
-# NEW: Timer for pacing attacks
 var attack_timer: Timer
 
 func _ready():
-	# find the player
 	var players = get_tree().get_nodes_in_group("player")
 	add_to_group("zombies")
 	if players.size() > 0:
 		player = players[0]
 
-	# set up attack timer
 	attack_timer = Timer.new()
 	attack_timer.wait_time = attack_cooldown
 	attack_timer.one_shot = false

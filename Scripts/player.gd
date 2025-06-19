@@ -113,6 +113,7 @@ func _on_muzzle_flash_finished():
 func take_damage(amount):
 	health -= amount
 	health_bar.value = health
+	print("%s took %d damage, health now: %d" % [name, amount, health])
 	if health <= 0:
 		die()
 

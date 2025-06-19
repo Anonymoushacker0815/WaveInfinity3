@@ -4,7 +4,7 @@ signal died
 @export var speed := 90
 @export var max_health := 30
 @export var fireball_scene: PackedScene
-@export var shoot_distance := 300  # Adjusted here
+@export var shoot_distance := 300 
 @export var shoot_cooldown := 1.0
 
 @onready var animated_sprite = $AnimatedSprite2D

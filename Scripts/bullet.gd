@@ -13,6 +13,8 @@ func _physics_process(delta):
 	position += direction * speed * delta
 
 func _on_body_entered(body):
+	if body.is_in_group("world_boundary"):
+		queue_free()
 	if body.is_in_group("skeletons") or body.is_in_group("zombies"):
 		if body.has_method("take_damage"):
 			body.take_damage(damage)
