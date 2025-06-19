@@ -13,7 +13,7 @@ The player regenerates to full hp after each wave.
 
 Environment
 The map is just one big empty plane. 
-The camera is 1920x1080 and follows the player. While the map is 5 000 px x 5 000 px. 
+The camera is 1920x1080 and follows the player. While the map is 4096 px x 4096 px. 
 The first wave starts with 10 zombies.
 Each wave the number of zombies increases by 10% and their stats except movement speed increase by 10% each wave. 
 Every 5 waves an additional ranged skeleton spawns each wave.
@@ -21,6 +21,3 @@ Every 5 waves an additional ranged skeleton spawns each wave.
 
 Mobs
 The Enemies spawn at the borders of the map and simply walk towards the player. 
-
-Zombies: 20HP. Movement speed of 50 px/seconds. Deals 10 damage on hit. Range of only melee.
-Skeleton: same stats as Zombies, but with a range of 300 px 
