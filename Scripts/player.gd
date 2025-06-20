@@ -75,6 +75,10 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
+func set_health(new_health: float):
+	health = new_health
+	print("Set health to: ", health)
+	
 func set_bullet_damage(new_damage: int):
 	bullet_damage = new_damage
 	print("Set bullet damage to: ", bullet_damage)

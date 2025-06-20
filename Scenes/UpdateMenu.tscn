@@ -12,19 +12,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -368.0
-offset_top = -293.0
-offset_right = 368.0
-offset_bottom = 293.0
+offset_left = -336.0
+offset_top = -227.5
+offset_right = 336.0
+offset_bottom = 227.5
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 293.0
-offset_top = 206.0
-offset_right = 444.0
-offset_bottom = 229.0
+offset_left = 260.0
+offset_top = 60.5
+offset_right = 411.0
+offset_bottom = 83.5
 text = "Choose an Upgrade"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
@@ -34,17 +34,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -87.0
-offset_top = -68.0
-offset_right = 86.0
-offset_bottom = 152.0
+offset_left = -86.5
+offset_top = -110.0
+offset_right = 86.5
+offset_bottom = 110.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
+[node name="HealthButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Increase Health"
+
 [node name="SpeedButton" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
-text = "Increas Speed
+text = "Increase Speed
 "
 
 [node name="FireRateButton" type="Button" parent="Panel/VBoxContainer"]
@@ -57,6 +61,7 @@ layout_mode = 2
 text = "Increase Damage"
 
 [node name="ChosenLabel" type="Label" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 vertical_alignment = 1
 

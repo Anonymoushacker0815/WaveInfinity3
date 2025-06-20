@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxsgpx3s306ao"]
+
+[ext_resource type="Script" uid="uid://1bhnou1nlblg" path="res://Scripts/AudioManager.gd" id="1_u6owb"]
+[ext_resource type="AudioStream" uid="uid://cefkesvmydsf6" path="res://Audio/intro_sound.mp3" id="2_yq78e"]
+[ext_resource type="AudioStream" uid="uid://dr6m6d1mjs8ys" path="res://Audio/main_sound.mp3" id="3_ncvnl"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_u6owb")
+
+[node name="IntroPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_yq78e")
+volume_db = -5.0
+
+[node name="MainPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ncvnl")
+volume_db = -5.0
+parameters/looping = true

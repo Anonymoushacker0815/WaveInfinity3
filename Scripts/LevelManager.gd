@@ -14,11 +14,13 @@ extends Node2D
 @export var skeleton_multiplier := 1.4
 
 # Base Player stats
+@export var base_player_health := 100.0
 @export var base_player_speed := 300.0
 @export var base_player_fire_rate := 0.5
 @export var base_player_damage := 10.0
 
 # Current Player stats
+var current_player_health: float
 var current_player_speed: float
 var current_player_fire_rate: float
 var current_player_damage: float
@@ -52,6 +54,7 @@ func _ready():
 	home_button.pressed.connect(on_home_button_pressed)
 	
 func reset_player_stats():
+	current_player_health = base_player_health
 	current_player_speed = base_player_speed
 	current_player_fire_rate = base_player_fire_rate
 	current_player_damage = base_player_damage
@@ -144,23 +147,32 @@ func show_upgrade_menu():
 	upgrade_menu.upgrade_selected.connect(upgrade_stat)
 	upgrade_menu.continue_pressed.connect(continue_to_next_level)
 
-func upgrade_stat(stat: String, amount: float):
-	match stat:
-		"speed":
-			current_player_speed += amount * base_player_speed
-			print("Upgraded speed to: ", current_player_speed)
-		"fire_rate":
-			current_player_fire_rate = max(0.05, current_player_fire_rate + amount)
-			print("Upgraded fire rate to: ", current_player_fire_rate)
-		"damage":
-			current_player_damage += amount
-			print("Upgraded damage to: ", current_player_damage)
-	
+func upgrade_stat(stat: String, percent_increase: float):
 	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		player.set_movement_speed(current_player_speed)
-		player.set_fire_rate(current_player_fire_rate)
-		player.set_bullet_damage(current_player_damage)
+	if not player:
+		return
+	
+	match stat:
+		"health":
+			var new_health = player.max_health * (1 + percent_increase)
+			player.max_health = new_health
+			player.set_health(new_health)  # Full heal
+			print("Health +20%: ", player.max_health)
+			
+		"speed":
+			var new_speed = player.speed * (1 + percent_increase)
+			player.set_movement_speed(new_speed)
+			print("Speed +20%: ", new_speed)
+			
+		"fire_rate":
+			var new_rate = player.fire_rate * (1 - percent_increase)  # Negative for faster shooting
+			player.set_fire_rate(max(0.05, new_rate))
+			print("Fire rate +20% faster: ", new_rate)
+			
+		"damage":
+			var new_damage = player.bullet_damage * (1 + percent_increase)
+			player.set_bullet_damage(new_damage)
+			print("Damage +20%: ", new_damage)
 
 func continue_to_next_level():
 	if upgrade_menu:
