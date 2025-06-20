@@ -77,6 +77,9 @@ func _physics_process(delta):
 	
 func set_health(new_health: float):
 	health = new_health
+	if health_bar:
+		health_bar.max_value = max_health
+		health_bar.value = health
 	print("Set health to: ", health)
 	
 func set_bullet_damage(new_damage: int):

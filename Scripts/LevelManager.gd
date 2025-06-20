@@ -156,7 +156,7 @@ func upgrade_stat(stat: String, percent_increase: float):
 		"health":
 			var new_health = player.max_health * (1 + percent_increase)
 			player.max_health = new_health
-			player.set_health(new_health)  # Full heal
+			player.set_health(new_health) 
 			print("Health +20%: ", player.max_health)
 			
 		"speed":
@@ -165,7 +165,7 @@ func upgrade_stat(stat: String, percent_increase: float):
 			print("Speed +20%: ", new_speed)
 			
 		"fire_rate":
-			var new_rate = player.fire_rate * (1 - percent_increase)  # Negative for faster shooting
+			var new_rate = player.fire_rate * (1 - percent_increase)  
 			player.set_fire_rate(max(0.05, new_rate))
 			print("Fire rate +20% faster: ", new_rate)
 			
