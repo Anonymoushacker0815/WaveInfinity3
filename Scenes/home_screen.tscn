@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1d2eomh6adoo"]
+[gd_scene load_steps=5 format=3 uid="uid://d1d2eomh6adoo"]
 
 [ext_resource type="Script" uid="uid://c63jv7j5yf7fd" path="res://Scripts/home_screen.gd" id="1_k0xob"]
 [ext_resource type="PackedScene" uid="uid://0rgkrolpa8k1" path="res://Scenes/map.tscn" id="2_tgfs5"]
 [ext_resource type="PackedScene" uid="uid://c8qirwe7jusj0" path="res://Scenes/Options_screen.tscn" id="3_uax10"]
+[ext_resource type="Texture2D" uid="uid://c8riq1ikk7xso" path="res://PNGs/homescreenBackground.png" id="4_u8qlv"]
 
 [node name="HomeScreen" type="Control"]
 layout_mode = 3
@@ -14,6 +15,12 @@ grow_vertical = 2
 script = ExtResource("1_k0xob")
 game_scene = ExtResource("2_tgfs5")
 options_scene = ExtResource("3_uax10")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1921.0
+offset_bottom = 1080.0
+texture = ExtResource("4_u8qlv")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -54,10 +61,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -617.5
-offset_top = -88.0
-offset_right = 617.5
+offset_left = -308.5
+offset_top = -45.0
+offset_right = 308.5
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 32
 text = "© 2025 Lukas Eberhart, Matthias Vallery"

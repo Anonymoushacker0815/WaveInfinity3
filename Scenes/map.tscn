@@ -44,13 +44,6 @@ script/source = "extends Label
 position = Vector2(2048, 2048)
 texture = ExtResource("1_5iua2")
 
-[node name="LevelManager" type="Node2D" parent="."]
-script = ExtResource("6_dqij7")
-player_scene = ExtResource("3_5iua2")
-zombie_scene = ExtResource("3_4i0n0")
-skeleton_scene = ExtResource("5_dqij7")
-upgrade_menu_scene = ExtResource("6_np2xp")
-
 [node name="LevelLabel" type="CanvasLayer" parent="."]
 
 [node name="LevelLabel" type="Label" parent="LevelLabel"]
@@ -65,6 +58,13 @@ theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = SubResource("FontFile_iof7d")
 theme_override_font_sizes/font_size = 128
 script = SubResource("GDScript_5iua2")
+
+[node name="LevelManager" type="Node2D" parent="."]
+script = ExtResource("6_dqij7")
+player_scene = ExtResource("3_5iua2")
+zombie_scene = ExtResource("3_4i0n0")
+skeleton_scene = ExtResource("5_dqij7")
+upgrade_menu_scene = ExtResource("6_np2xp")
 
 [node name="DeathScreen" type="CanvasLayer" parent="."]
 visible = false

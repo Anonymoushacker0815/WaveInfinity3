@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cabtcmkt80us"]
+[gd_scene load_steps=3 format=3 uid="uid://cabtcmkt80us"]
 
 [ext_resource type="Script" uid="uid://pojmji5s6pdu" path="res://Scripts/UpgradeMenu.gd" id="1_p6oue"]
+[ext_resource type="Texture2D" uid="uid://7gi7clrr5y8m" path="res://PNGs/updateMenuBackground.png" id="2_4wl1l"]
 
 [node name="UpdateMenu" type="CanvasLayer"]
 process_mode = 3
@@ -12,20 +13,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -336.0
-offset_top = -227.5
-offset_right = 336.0
-offset_bottom = 227.5
+offset_left = -226.0
+offset_top = -194.5
+offset_right = 226.0
+offset_bottom = 194.5
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+offset_left = -30.0
+offset_top = -92.5
+offset_right = 994.0
+offset_bottom = 931.5
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4wl1l")
+
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 0
-offset_left = 260.0
-offset_top = 60.5
-offset_right = 411.0
-offset_bottom = 83.5
-text = "Choose an Upgrade"
+offset_left = 79.0
+offset_top = -3.5
+offset_right = 379.0
+offset_bottom = 35.5
+theme_override_colors/font_color = Color(0.472615, 0.506959, 0.268504, 1)
+theme_override_constants/line_spacing = 0
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/font_size = 28
+text = "CHOOSE AN UPGRADE"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1

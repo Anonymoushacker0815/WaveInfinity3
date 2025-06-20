@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bloeh05wkr6jk" path="res://PNGs/crosshair.png" id="2_ygrq2"]
 
 [node name="Recticle" type="Node2D"]
+z_index = 100
 script = ExtResource("1_fvfu6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

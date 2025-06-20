@@ -138,7 +138,9 @@ drag_bottom_margin = 0.0
 script = ExtResource("4_5xvqy")
 
 [node name="Sprite2D" type="Sprite2D" parent="Reticle"]
-scale = Vector2(3, 3)
+z_index = 5
+position = Vector2(1, 0.5)
+scale = Vector2(0.008, 0.008)
 texture = ExtResource("5_yfn50")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

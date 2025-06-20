@@ -10,8 +10,8 @@ extends Node2D
 # Base counts & exponential multipliers
 @export var base_zombie_count   := 10
 @export var base_skeleton_count := 5
-@export var zombie_multiplier   := 1.5
-@export var skeleton_multiplier := 1.4
+@export var zombie_multiplier   := 1.2
+@export var skeleton_multiplier := 1.1
 
 # Base Player stats
 @export var base_player_health := 100.0
