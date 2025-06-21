@@ -4,7 +4,7 @@ signal upgrade_selected(stat: String, amount: float, special: bool)
 signal continue_pressed
 
 @export var stat_increase := 0.2
-@export var special_level_interval := 1
+@export var special_level_interval := 3
 
 var upgrade_buttons = []
 var current_level := 1
