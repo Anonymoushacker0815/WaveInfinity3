@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var speed   := 200.0 
-@export var damage  := 20    
+@export var damage  := 10    
 
 var velocity := Vector2.ZERO
 
@@ -11,7 +11,7 @@ func _ready():
 	if root.has_node("LevelManager"):
 		lvl = root.get_node("LevelManager").level
 
-	var stat_mult = pow(1.1, lvl - 1)
+	var stat_mult = pow(1.05, lvl - 1)
 	speed  *= stat_mult
 	damage = int(damage * stat_mult)
 

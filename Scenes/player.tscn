@@ -102,9 +102,8 @@ shape = SubResource("RectangleShape2D_dw050")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_dw050")
-animation = &"walk"
-frame = 1
-frame_progress = 0.387126
+animation = &"idle"
+frame_progress = 1.0
 
 [node name="Gun" type="Node2D" parent="."]
 
@@ -113,6 +112,7 @@ position = Vector2(10.5, -12.5)
 scale = Vector2(0.0380076, 0.0245666)
 sprite_frames = SubResource("SpriteFrames_tbo0y")
 animation = &"flash"
+frame_progress = 0.715417
 centered = false
 
 [node name="BulletSpawnPoint" type="Marker2D" parent="Gun"]

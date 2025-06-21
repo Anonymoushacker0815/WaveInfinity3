@@ -133,50 +133,69 @@ func is_far_enough(pos: Vector2) -> bool:
 
 func on_mob_died():
 	alive_mobs -= 1
+	
+	await get_tree().process_frame
+	
 	if alive_mobs <= 0:
-		show_upgrade_menu()
-		
+		var mobs = get_tree().get_nodes_in_group("zombies") + get_tree().get_nodes_in_group("skeletons")
+		if mobs.size() == 0:
+			show_upgrade_menu()
+		else:
+			alive_mobs = mobs.size() 
+			
 func show_upgrade_menu():
+	if upgrade_menu:
+		upgrade_menu.queue_free()
+		await get_tree().process_frame
+		upgrade_menu = null
+
 	get_tree().paused = true
 	upgrade_menu = upgrade_menu_scene.instantiate()
 	add_child(upgrade_menu)
-
+	upgrade_menu.set_level(level)
 	upgrade_menu.process_mode = Node.PROCESS_MODE_ALWAYS
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
-	upgrade_menu.upgrade_selected.connect(upgrade_stat)
-	upgrade_menu.continue_pressed.connect(continue_to_next_level)
 
-func upgrade_stat(stat: String, percent_increase: float):
+	upgrade_menu.upgrade_selected.connect(upgrade_stat, CONNECT_ONE_SHOT)
+	upgrade_menu.continue_pressed.connect(continue_to_next_level, CONNECT_ONE_SHOT)
+
+func upgrade_stat(stat: String, percent_increase: float, is_special: bool):
 	var player = get_tree().get_first_node_in_group("player")
 	if not player:
 		return
 	
-	match stat:
-		"health":
-			var new_health = player.max_health * (1 + percent_increase)
-			player.max_health = new_health
-			player.set_health(new_health) 
-			print("Health +20%: ", player.max_health)
-			
-		"speed":
-			var new_speed = player.speed * (1 + percent_increase)
-			player.set_movement_speed(new_speed)
-			print("Speed +20%: ", new_speed)
-			
-		"fire_rate":
-			var new_rate = player.fire_rate * (1 - percent_increase)  
-			player.set_fire_rate(max(0.05, new_rate))
-			print("Fire rate +20% faster: ", new_rate)
-			
-		"damage":
-			var new_damage = player.bullet_damage * (1 + percent_increase)
-			player.set_bullet_damage(new_damage)
-			print("Damage +20%: ", new_damage)
+	if is_special:
+		match stat:
+			"health":
+				player.extra_bullets += 1
+				print("Extra Bullets:", player.extra_bullets)
+			"speed":
+				player.pierce_count += 1
+			"fire_rate":
+				player.spread_level += 1
+				print("Spread Level:", player.spread_level)
+			"damage":
+				player.bullet_speed_multiplier += 0.3
+	else:
+		match stat:
+			"health":
+				var new_health = player.max_health * (1 + percent_increase)
+				player.max_health = new_health
+				player.set_health(new_health) 
+			"speed":
+				var new_speed = player.speed * (1 + percent_increase)
+				player.set_movement_speed(new_speed)
+			"fire_rate":
+				var new_rate = player.fire_rate * (1 - percent_increase)  
+				player.set_fire_rate(max(0.05, new_rate))
+			"damage":
+				var new_damage = player.bullet_damage * (1 + percent_increase)
+				player.set_bullet_damage(new_damage)
 
 func continue_to_next_level():
 	if upgrade_menu:
 		upgrade_menu.queue_free()
+		await get_tree().process_frame 
 		upgrade_menu = null
 		
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)

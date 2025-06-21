@@ -19,6 +19,11 @@ var bullet_damage: int = 10
 @onready var reticle = $Reticle
 @onready var flash = $Gun/MuzzleFlash
 
+var extra_bullets := 0
+var spread_level := 0  
+var pierce_count := 0
+var bullet_speed_multiplier := 1.0
+
 var facing_right = true
 
 func _ready():
@@ -33,8 +38,6 @@ func _ready():
 	reticle.show()
 	reticle.global_position = get_global_mouse_position()
 	
-
-
 func _process(delta):
 	var mouse_pos = get_global_mouse_position()
 	flash.flip_h = !facing_right
@@ -119,20 +122,46 @@ func initialize_camera():
 
 func shoot():
 	if bullet_scene == null:
-		push_error("No bullet scene assigned!")
 		return
 	
+	var base_angle = ($Reticle.global_position - global_position).angle()
+	
+	fire_bullet_spread(base_angle)
+	
+	if extra_bullets > 0:
+		for i in range(extra_bullets):
+			await get_tree().create_timer(0.1).timeout
+			fire_bullet_spread(base_angle)  
+
+func fire_bullet_spread(base_angle: float):
+	if spread_level == 0:
+		fire_bullet(base_angle)
+	else:
+		var spread_angle = deg_to_rad(4)
+		var bullet_count = spread_level + 1 
+		
+		if bullet_count % 2 == 1:
+			fire_bullet(base_angle)
+		
+		var bullets_per_side = floor(bullet_count / 2.0)
+		for i in range(bullets_per_side):
+			var angle_offset = spread_angle * (i + 1)
+			fire_bullet(base_angle + angle_offset)
+			fire_bullet(base_angle - angle_offset)
+
+func fire_bullet(angle: float):
 	var bullet = bullet_scene.instantiate()
 	get_parent().add_child(bullet)
-	
 	bullet.global_position = $Gun/BulletSpawnPoint.global_position
-	bullet.direction = ($Reticle.global_position - bullet.global_position).normalized()
-	bullet.rotation = bullet.direction.angle()
-	bullet.damage = bullet_damage  
+	bullet.start_position = bullet.global_position
+	bullet.direction = Vector2.RIGHT.rotated(angle)
+	bullet.rotation = angle
+	bullet.damage = bullet_damage
+	bullet.speed *= bullet_speed_multiplier
+	if pierce_count > 0:
+		bullet.set_pierce(pierce_count)
 	
-	print("Fired bullet with damage: ", bullet.damage)
-
-	# Show muzzle flash
+	# muzzle flash
 	var muzzle_flash = $Gun.get_node("MuzzleFlash")
 	muzzle_flash.show()
 	muzzle_flash.flip_h = !facing_right
